@@ -14,9 +14,9 @@ module JaLC
     class Client
       BASE_URL = 'https://api.japanlinkcenter.org'
 
-      def initialize(base_url: BASE_URL, user_agent: "jalc-rest v#{VERSION}")
+      def initialize(logger: nil, base_url: BASE_URL)
+        @logger = logger
         @base_url = base_url
-        @user_agent = user_agent
       end
 
       def prefixes(ra: nil, sort: nil, order: nil)
@@ -35,8 +35,9 @@ module JaLC
       def conn
         @conn ||= Faraday.new(
           url: @base_url,
-          headers: { 'User-Agent' => @user_agent },
+          headers: { 'User-Agent' => "jalc-rest v#{VERSION}" },
         ) do |f|
+          f.response :logger, @logger, { headers: false }
           f.response :json
         end
       end

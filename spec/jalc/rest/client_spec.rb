@@ -2,7 +2,7 @@
 
 RSpec.describe JaLC::REST::Client do
   describe '#prefixes' do
-    let(:client) { described_class.new }
+    let(:client) { described_class.new(logger: ::Logger.new(nil)) }
 
     context 'without args' do
       before do
