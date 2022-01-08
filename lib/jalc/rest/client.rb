@@ -7,6 +7,7 @@ rescue LoadError
   # do nothing
 end
 
+require_relative 'error'
 require_relative 'version'
 
 module JaLC
@@ -28,6 +29,8 @@ module JaLC
             order: order,
           }.compact,
         )
+      rescue Faraday::Error => e
+        handle_error(e)
       end
 
       private
@@ -37,8 +40,22 @@ module JaLC
           url: @base_url,
           headers: { 'User-Agent' => "jalc-rest v#{VERSION}" },
         ) do |f|
-          f.response :logger, @logger, { headers: false }
+          f.response :raise_error
           f.response :json
+          f.response :logger, @logger, { headers: false }
+        end
+      end
+
+      def handle_error(error)
+        case error.response_status
+        when 400
+          raise BadRequestError, error
+        when 400...500
+          raise ClientError, error
+        when 500...600
+          raise ServerError, error
+        else
+          raise error
         end
       end
     end

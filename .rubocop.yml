@@ -9,6 +9,10 @@ AllCops:
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
 
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
 Naming/MethodParameterName:
   Enabled: false
 
