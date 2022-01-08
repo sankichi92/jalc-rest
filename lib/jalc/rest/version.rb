@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Jalc
-  module Rest
+module JaLC
+  module REST
     VERSION = '0.1.0'
   end
 end

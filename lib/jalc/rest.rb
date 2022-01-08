@@ -2,8 +2,8 @@
 
 require_relative 'rest/version'
 
-module Jalc
-  module Rest
+module JaLC
+  module REST
     class Error < StandardError; end
     # Your code goes here...
   end

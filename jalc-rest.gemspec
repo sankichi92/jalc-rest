@@ -4,7 +4,7 @@ require_relative 'lib/jalc/rest/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'jalc-rest'
-  spec.version = Jalc::Rest::VERSION
+  spec.version = JaLC::REST::VERSION
   spec.authors = ['Takahiro Miyoshi']
   spec.email = ['takahiro-miyoshi@sankichi.net']
 

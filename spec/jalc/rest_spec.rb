@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe Jalc::Rest do
+RSpec.describe JaLC::REST do
   it 'has a version number' do
-    expect(Jalc::Rest::VERSION).not_to be nil
+    expect(JaLC::REST::VERSION).not_to be nil
   end
 end
