@@ -6,8 +6,20 @@ AllCops:
   TargetRubyVersion: 2.7
   NewCops: enable
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+Naming/MethodParameterName:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
 
 RSpec/FilePath:
   CustomTransform:

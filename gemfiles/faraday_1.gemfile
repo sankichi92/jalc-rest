@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gemspec path: '../'
 
 gem 'faraday', '~> 1.0'
+gem 'faraday_middleware'
 
 gem 'rake'
 gem 'rspec'
