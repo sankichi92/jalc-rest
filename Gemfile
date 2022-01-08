@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in jalc-rest.gemspec
 gemspec
 
+gem 'debug'
 gem 'rake'
 gem 'rspec'
 gem 'rubocop'

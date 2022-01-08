@@ -1,5 +1,6 @@
 {
   "recommendations": [
-    "rebornix.ruby"
+    "rebornix.ruby",
+    "koichisasada.vscode-rdbg"
   ]
 }
