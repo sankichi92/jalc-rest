@@ -43,7 +43,8 @@ module JaLC
       end
 
       def doi(doi)
-        conn.get("/dois/#{URI.encode_www_form_component(doi)}")
+        encoded_doi = URI.encode_www_form_component(URI.encode_www_form_component(doi))
+        conn.get("/dois/#{encoded_doi}")
       end
 
       private

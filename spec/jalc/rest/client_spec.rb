@@ -163,7 +163,7 @@ RSpec.describe JaLC::REST::Client do
 
   describe '#doi' do
     before do
-      stub_request(:get, 'https://api.japanlinkcenter.org/dois/10.123%2Fabc').to_return(
+      stub_request(:get, 'https://api.japanlinkcenter.org/dois/10.123%252Fabc').to_return(
         headers: {
           'Content-Type' => 'application/json',
         },
@@ -177,7 +177,7 @@ RSpec.describe JaLC::REST::Client do
       response = client.doi('10.123/abc')
 
       expect(response.body['data']).to be_a Hash
-      expect(WebMock).to have_requested(:get, 'https://api.japanlinkcenter.org/dois/10.123%2Fabc')
+      expect(WebMock).to have_requested(:get, 'https://api.japanlinkcenter.org/dois/10.123%252Fabc')
     end
   end
 end
