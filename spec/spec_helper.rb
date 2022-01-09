@@ -2,7 +2,7 @@
 
 require 'webmock/rspec'
 
-require 'jalc/rest'
+require 'jalc'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

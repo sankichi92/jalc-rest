@@ -3,7 +3,7 @@
 require 'faraday'
 
 require_relative 'response/raise_error'
-require_relative 'version'
+require_relative '../version'
 
 module JaLC
   module REST
@@ -49,7 +49,7 @@ module JaLC
       def conn
         @conn ||= Faraday.new(
           url: @base_url,
-          headers: { 'User-Agent' => "jalc-rest v#{VERSION}" },
+          headers: { 'User-Agent' => "jalc-ruby v#{VERSION}" },
         ) do |f|
           f.use Response::RaiseError
           f.response :json

@@ -4,7 +4,6 @@ require 'forwardable'
 
 require_relative 'rest/client'
 require_relative 'rest/config'
-require_relative 'rest/version'
 
 module JaLC
   module REST

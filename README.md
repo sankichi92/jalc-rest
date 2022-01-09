@@ -1,13 +1,13 @@
-# JaLC::REST
+# jalc-ruby
 
-Ruby client for [JaLC REST API](https://api.japanlinkcenter.org/api-docs/index.html).
+Ruby client for [JaLC (Japan Link Center)](https://japanlinkcenter.org/top/) API.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'jalc-rest'
+gem 'jalc'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install jalc-rest
+    $ gem install jalc
 
 ## Usage
 
@@ -30,7 +30,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/sankichi92/jalc-rest. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/sankichi92/jalc-rest/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/sankichi92/jalc-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/sankichi92/jalc-ruby/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -38,4 +38,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the JaLC::REST project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/sankichi92/jalc-rest/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the jalc-ruby project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/sankichi92/jalc-ruby/blob/main/CODE_OF_CONDUCT.md).
