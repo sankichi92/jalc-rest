@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Filter password on logs
+
 ## [1.1.0] - 2022-01-10
 
 - Add JaLC::Registration for the registration API

@@ -52,7 +52,11 @@ module JaLC
           f.use Middleware::RaiseError
           f.use Middleware::ParseXML
           f.response :raise_error
-          f.response :logger, @logger, { headers: false } if @logger
+          if @logger
+            f.response :logger, @logger, { headers: false } do |logger|
+              logger.filter(/(password=)\w+/, '\1[FILTERED]')
+            end
+          end
         end
       end
     end
