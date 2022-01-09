@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-require 'logger'
-
 RSpec.describe JaLC::REST::Client do
-  let(:client) { described_class.new(logger: Logger.new(nil)) }
+  let(:client) { described_class.new }
 
   describe '#prefixes' do
     context 'without args' do

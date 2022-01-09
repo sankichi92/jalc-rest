@@ -7,9 +7,9 @@ require_relative 'version'
 
 module JaLC
   module REST
-    class Client
-      BASE_URL = 'https://api.japanlinkcenter.org'
+    BASE_URL = 'https://api.japanlinkcenter.org'
 
+    class Client
       def initialize(logger: nil, base_url: BASE_URL)
         @logger = logger
         @base_url = base_url
@@ -53,7 +53,7 @@ module JaLC
         ) do |f|
           f.use Response::RaiseError
           f.response :json
-          f.response :logger, @logger, { headers: false }
+          f.response :logger, @logger, { headers: false } if @logger
         end
       rescue Faraday::Error => e
         raise e unless e.message.match?(/is not registered/)
