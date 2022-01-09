@@ -7,7 +7,7 @@ module JaLC
     class Config
       attr_accessor :logger
 
-      def initilaize
+      def initialize
         @logger = ::Logger.new($stdout)
       end
     end
