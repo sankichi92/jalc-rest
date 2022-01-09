@@ -3,9 +3,9 @@
 require 'logger'
 
 RSpec.describe JaLC::REST::Client do
-  describe '#prefixes' do
-    let(:client) { described_class.new(logger: Logger.new(nil)) }
+  let(:client) { described_class.new(logger: Logger.new(nil)) }
 
+  describe '#prefixes' do
     context 'without args' do
       before do
         stub_request(:get, 'https://api.japanlinkcenter.org/prefixes').to_return(
@@ -72,8 +72,6 @@ RSpec.describe JaLC::REST::Client do
   end
 
   describe '#doilist' do
-    let(:client) { described_class.new(logger: Logger.new(nil)) }
-
     context 'without keyword args' do
       let(:prefix) { '10.123' }
 
@@ -162,6 +160,28 @@ RSpec.describe JaLC::REST::Client do
       it 'raises ResourceNotFound' do
         expect { client.doilist(prefix) }.to raise_error JaLC::REST::ResourceNotFound
       end
+    end
+  end
+
+  describe '#doi' do
+    let(:doi) { '10.123/abc' }
+
+    before do
+      stub_request(:get, "https://api.japanlinkcenter.org/dois/#{doi}").to_return(
+        headers: {
+          'Content-Type' => 'application/json',
+        },
+        body: {
+          data: {},
+        }.to_json,
+      )
+    end
+
+    it 'requests "GET /dois/:doi"' do
+      response = client.doi(doi)
+
+      expect(response.body['data']).to be_a Hash
+      expect(WebMock).to have_requested(:get, "https://api.japanlinkcenter.org/dois/#{doi}")
     end
   end
 end

@@ -40,6 +40,10 @@ module JaLC
         )
       end
 
+      def doi(doi)
+        conn.get("/dois/#{doi}")
+      end
+
       private
 
       def conn
