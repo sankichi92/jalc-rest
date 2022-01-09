@@ -22,6 +22,9 @@ Naming/MethodParameterName:
 Style/Documentation:
   Enabled: false
 
+Style/NumericLiterals:
+  Enabled: false
+
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: consistent_comma
 

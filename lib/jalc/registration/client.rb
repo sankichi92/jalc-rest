@@ -30,6 +30,17 @@ module JaLC
         )
       end
 
+      def get_result(exec_id)
+        conn.get(
+          '/jalc/infoRegistry/registDataResult/index',
+          {
+            login_id: @id,
+            login_password: @password,
+            exec_id: exec_id,
+          },
+        )
+      end
+
       private
 
       def conn
