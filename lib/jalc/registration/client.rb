@@ -4,10 +4,12 @@ require 'faraday'
 require 'faraday/multipart'
 
 require_relative '../version'
+require_relative 'middleware/parse_xml'
+require_relative 'middleware/raise_error'
 
 module JaLC
   module Registration
-    BASE_URL = 'https://japanlinkcenter.org/jalc/infoRegistry/registDataReceive/index'
+    BASE_URL = 'https://japanlinkcenter.org'
 
     class Client
       def initialize(id:, password:, logger: nil, base_url: BASE_URL)
@@ -19,7 +21,7 @@ module JaLC
 
       def post(xml_file)
         conn.post(
-          nil,
+          '/jalc/infoRegistry/registDataReceive/index',
           {
             login_id: Faraday::Multipart::ParamPart.new(@id, 'text/plain'),
             login_password: Faraday::Multipart::ParamPart.new(@password, 'text/plain'),
@@ -36,6 +38,9 @@ module JaLC
           headers: { 'User-Agent' => "jalc-ruby v#{VERSION}" },
         ) do |f|
           f.request :multipart
+          f.use Middleware::RaiseError
+          f.use Middleware::ParseXML
+          f.response :raise_error
           f.response :logger, @logger, { headers: false } if @logger
         end
       end
