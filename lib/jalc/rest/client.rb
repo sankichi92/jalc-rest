@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'uri'
+
 require 'faraday'
 
 require_relative 'response/raise_error'
@@ -41,7 +43,7 @@ module JaLC
       end
 
       def doi(doi)
-        conn.get("/dois/#{doi}")
+        conn.get("/dois/#{URI.encode_www_form_component(doi)}")
       end
 
       private
