@@ -42,6 +42,40 @@ doi_res = JaLC::REST.doi(doi)
 doi_res.body['data']
 ```
 
+### JaLC Registration API
+
+See https://japanlinkcenter.org/top/doc/JaLC_tech_interface_doc.pdf for API detail
+
+```ruby
+require 'jalc'
+
+JaLC::Registration.configure do |config|
+  config.id = 'sankichi92'
+  config.password = ENV['JALC_PASSWORD']
+end
+
+res = JaLC::Registration.post(File.open('/path/to/xml'))
+# response.body is an instance of REXML::Document
+res.body.root.elements['head/okcnt'].text #=> 1
+
+# With XML head/result_method=2 (Async)
+async_res = JaLC::Registration.post(StringIO.new(<<~XML))
+  <?xml version="1.0" encoding="UTF-8"?>
+  <root>
+    <head>
+      <result_method>2</result_method>
+    </head>
+    <body>
+      ...
+    </body
+  </root>
+XML
+exec_id = async_res.body.root.elements['head/exec_id'].text #=> 12345
+
+result_res = JaLC::Registration.get_result(exec_id)
+res.body.root.elements['head/status'].text
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
