@@ -8,12 +8,29 @@ RSpec.describe JaLC::REST::Client do
 
     context 'without args' do
       before do
-        stub_request(:get, 'https://api.japanlinkcenter.org/prefixes')
+        stub_request(:get, 'https://api.japanlinkcenter.org/prefixes').to_return(
+          headers: {
+            'Content-Type' => 'application/json',
+          },
+          body: {
+            data: {
+              items: [
+                {
+                  prefix: '10.123',
+                  ra: 'JaLC',
+                  siteId: 'sankichi92',
+                  updated_date: '2022-1-09',
+                }
+              ],
+            },
+          }.to_json,
+        )
       end
 
       it 'requests "GET /prefixes"' do
-        client.prefixes
+        response = client.prefixes
 
+        expect(response.body['data']['items']).to be_an Array
         expect(WebMock).to have_requested(:get, 'https://api.japanlinkcenter.org/prefixes')
       end
     end
@@ -27,26 +44,25 @@ RSpec.describe JaLC::REST::Client do
         client.prefixes(ra: 'JaLC', sort: 'siteId', order: 'desc')
 
         expect(WebMock).to have_requested(:get, 'https://api.japanlinkcenter.org/prefixes')
-                             .with(query: { ra: 'JaLC', sort: 'siteId', order: 'desc' })
+          .with(query: { ra: 'JaLC', sort: 'siteId', order: 'desc' })
       end
     end
 
     context 'when the response status is 400' do
       before do
-        stub_request(:get, 'https://api.japanlinkcenter.org/prefixes?ra=invalid')
-          .to_return(
-            status: 400,
-            headers: {
-              'Content-Type' => 'application/json',
-            },
-            body: {
-              message: {
-                errors: {
-                  message: 'raの値が不正です。',
-                },
+        stub_request(:get, 'https://api.japanlinkcenter.org/prefixes?ra=invalid').to_return(
+          status: 400,
+          headers: {
+            'Content-Type' => 'application/json',
+          },
+          body: {
+            message: {
+              errors: {
+                message: 'raの値が不正です。',
               },
-            }.to_json,
-          )
+            },
+          }.to_json,
+        )
       end
 
       it 'raises BadRequestError' do

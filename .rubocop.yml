@@ -6,9 +6,6 @@ AllCops:
   TargetRubyVersion: 2.7
   NewCops: enable
 
-Layout/MultilineMethodCallIndentation:
-  EnforcedStyle: indented_relative_to_receiver
-
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
@@ -28,3 +25,6 @@ Style/TrailingCommaInHashLiteral:
 RSpec/FilePath:
   CustomTransform:
     JaLC: jalc
+
+RSpec/MultipleExpectations:
+  Enabled: false
