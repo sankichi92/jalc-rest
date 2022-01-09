@@ -31,11 +31,11 @@ JaLC::REST.config.logger = MyLogger.new
 
 # GET /prefixes
 prefixes_res = JaLC::REST.prefixes(ra: 'JaLC', sort: 'siteId', order: 'desc')
-prefix = prefixes_res.body['data']['items'].first['prefix'] #=> 10.123
+prefix = prefixes_res.body['data']['items'].first['prefix'] #=> "10.123"
 
 # GET /doilist/:prefix
 doilist_res = JaLC::REST.doilist(prefix, rows: 100)
-doi = doilist_res.body['data']['items'].last['dois']['doi'] #=> 10.123/abc
+doi = doilist_res.body['data']['items'].last['dois']['doi'] #=> "10.123/abc"
 
 # GET /dois/:doi
 doi_res = JaLC::REST.doi(doi)
@@ -52,11 +52,12 @@ require 'jalc'
 JaLC::Registration.configure do |config|
   config.id = 'sankichi92'
   config.password = ENV['JALC_PASSWORD']
+  config.logger = nil
 end
 
 res = JaLC::Registration.post(File.open('/path/to/xml'))
 # response.body is an instance of REXML::Document
-res.body.root.elements['head/okcnt'].text #=> 1
+res.body.root.elements['head/okcnt'].text #=> "1"
 
 # With XML head/result_method=2 (Async)
 async_res = JaLC::Registration.post(StringIO.new(<<~XML))
@@ -70,10 +71,10 @@ async_res = JaLC::Registration.post(StringIO.new(<<~XML))
     </body
   </root>
 XML
-exec_id = async_res.body.root.elements['head/exec_id'].text #=> 12345
+exec_id = async_res.body.root.elements['head/exec_id'].text #=> "12345"
 
 result_res = JaLC::Registration.get_result(exec_id)
-res.body.root.elements['head/status'].text
+result_res.body.root.elements['head/status'].text #=> "2"
 ```
 
 ## Development
