@@ -20,7 +20,27 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### JaLC REST API
+
+See https://api.japanlinkcenter.org/api-docs/index.html for API detail.
+
+```ruby
+require 'jalc'
+
+JaLC::REST.config.logger = MyLogger.new
+
+# GET /prefixes
+prefixes_res = JaLC::REST.prefixes(ra: 'JaLC', sort: 'siteId', order: 'desc')
+prefix = prefixes_res.body['data']['items'].first['prefix'] #=> 10.123
+
+# GET /doilist/:prefix
+doilist_res = JaLC::REST.doilist(prefix, rows: 100)
+doi = doilist_res.body['data']['items'].last['dois']['doi'] #=> 10.123/abc
+
+# GET /dois/:doi
+doi_res = JaLC::REST.doi(doi)
+doi_res.body['data']
+```
 
 ## Development
 
