@@ -4,7 +4,9 @@ require 'faraday'
 
 module JaLC
   module REST
-    class Error < StandardError
+    class Error < StandardError; end
+
+    class HTTPError < Error
       attr_reader :response
 
       def initialize(msg = nil, response: nil)
@@ -24,10 +26,10 @@ module JaLC
       end
     end
 
-    class ClientError < Error; end
+    class ClientError < HTTPError; end
     class BadRequestError < ClientError; end
     class ResourceNotFound < ClientError; end
-    class ServerError < Error; end
+    class ServerError < HTTPError; end
     class NilStatusError < ServerError; end
   end
 end

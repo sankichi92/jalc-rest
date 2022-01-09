@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 require 'faraday'
-begin
-  require 'faraday_middleware'
-rescue LoadError
-  # do nothing
-end
 
 require_relative 'response/raise_error'
 require_relative 'version'
@@ -56,6 +51,17 @@ module JaLC
           f.response :json
           f.response :logger, @logger, { headers: false }
         end
+      rescue Faraday::Error => e
+        raise e unless e.message.match?(/is not registered/)
+
+        begin
+          require 'faraday_middleware'
+        rescue LoadError
+          raise LoadError, 'faraday_middleware gem is required when using Faraday v1.' \
+                           " Please add `gem 'faraday_middleware'` to your Gemfile."
+        end
+
+        retry
       end
     end
   end
