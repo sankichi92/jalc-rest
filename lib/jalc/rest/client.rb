@@ -4,7 +4,7 @@ require 'uri'
 
 require 'faraday'
 
-require_relative 'response/raise_error'
+require_relative 'middleware/raise_error'
 require_relative '../version'
 
 module JaLC
@@ -54,7 +54,7 @@ module JaLC
           url: @base_url,
           headers: { 'User-Agent' => "jalc-ruby v#{VERSION}" },
         ) do |f|
-          f.use Response::RaiseError
+          f.use Middleware::RaiseError
           f.response :json
           f.response :logger, @logger, { headers: false } if @logger
         end
