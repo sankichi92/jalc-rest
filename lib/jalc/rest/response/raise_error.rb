@@ -11,15 +11,15 @@ module JaLC
         def on_complete(env)
           case env[:status]
           when 400
-            raise JaLC::REST::BadRequestError.new(response: response_values(env))
+            raise BadRequestError.new(response: response_values(env))
           when 404
-            raise JaLC::REST::ResourceNotFound.new(response: response_values(env))
+            raise ResourceNotFound.new(response: response_values(env))
           when 400...500
-            raise JaLC::REST::ClientError.new(response: response_values(env))
+            raise ClientError.new(response: response_values(env))
           when 500...600
-            raise JaLC::REST::ServerError.new(response: response_values(env))
+            raise ServerError.new(response: response_values(env))
           when nil
-            raise JaLC::REST::NilStatusError.new(
+            raise NilStatusError.new(
               'http status could not be derived from the server response',
               response: response_values(env),
             )
