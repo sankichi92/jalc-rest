@@ -7,7 +7,7 @@ module JaLC
     module Middleware
       class ParseXML < Faraday::Middleware
         def on_complete(env)
-          env[:body] = REXML::Document.new(env[:body].to_s)
+          env.body = REXML::Document.new(env.body.to_s)
         end
       end
     end
