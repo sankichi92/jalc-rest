@@ -12,6 +12,8 @@ module JaLC
           case env[:status]
           when 400
             raise JaLC::REST::BadRequestError.new(response: response_values(env))
+          when 404
+            raise JaLC::REST::ResourceNotFound.new(response: response_values(env))
           when 400...500
             raise JaLC::REST::ClientError.new(response: response_values(env))
           when 500...600

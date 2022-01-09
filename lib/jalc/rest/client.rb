@@ -31,6 +31,20 @@ module JaLC
         )
       end
 
+      def doilist(prefix, from: nil, to: nil, rows: nil, page: nil, sort: nil, order: nil)
+        conn.get(
+          "/doilist/#{prefix}",
+          {
+            from: from,
+            until: to, # since `until` is Ruby's keyword
+            rows: rows,
+            page: page,
+            sort: sort,
+            order: order,
+          }.compact,
+        )
+      end
+
       private
 
       def conn

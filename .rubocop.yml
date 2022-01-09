@@ -10,6 +10,12 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*
 
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
 Naming/MethodParameterName:
   Enabled: false
 
@@ -21,6 +27,9 @@ Style/TrailingCommaInArguments:
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma
+
+RSpec/ExampleLength:
+  Enabled: false
 
 RSpec/FilePath:
   CustomTransform:

@@ -26,6 +26,7 @@ module JaLC
 
     class ClientError < Error; end
     class BadRequestError < ClientError; end
+    class ResourceNotFound < ClientError; end
     class ServerError < Error; end
     class NilStatusError < ServerError; end
   end
