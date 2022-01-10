@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [2.0.0] - 2022-01-10
+
 - Change the return values from `Faraday::Response` to its `#body`
 
 ## [1.2.0] - 2022-01-10
