@@ -76,8 +76,8 @@ module JaLC
     class Client
       def initialize: (?logger: _Logger?, ?base_url: String) -> void
       def prefixes: (?ra: String?, ?sort: String?, ?order: String?) -> response_body
-      def doilist: (String, ?from: String?, ?to: String?, ?rows: Integer? | String?, ?page: Integer? | String?, ?sort: String?, ?order: String?) -> response_body
-      def doi: (String) -> response_body
+      def doilist: (String prefix, ?from: String?, ?to: String?, ?rows: Integer? | String?, ?page: Integer? | String?, ?sort: String?, ?order: String?) -> response_body
+      def doi: (String doi) -> response_body
     end
 
     class Config
