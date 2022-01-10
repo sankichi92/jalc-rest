@@ -56,18 +56,20 @@ JaLC::Registration.configure do |config|
 end
 
 res = JaLC::Registration.post(File.open('/path/to/xml'))
-# response.body is an instance of REXML::Document
+
+# body is an REXML::Document
 res.body.root.elements['head/okcnt'].text #=> "1"
 
-# With XML head/result_method=2 (Async)
+# async registration (result_method=2)
 async_res = JaLC::Registration.post(StringIO.new(<<~XML))
   <?xml version="1.0" encoding="UTF-8"?>
   <root>
     <head>
       <result_method>2</result_method>
+      <!-- ... -->
     </head>
     <body>
-      ...
+      <!-- ... -->
     </body
   </root>
 XML
