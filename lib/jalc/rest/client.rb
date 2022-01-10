@@ -18,7 +18,7 @@ module JaLC
       end
 
       def prefixes(ra: nil, sort: nil, order: nil)
-        conn.get(
+        response = conn.get(
           '/prefixes',
           {
             ra: ra,
@@ -26,10 +26,11 @@ module JaLC
             order: order,
           }.compact,
         )
+        response.body
       end
 
       def doilist(prefix, from: nil, to: nil, rows: nil, page: nil, sort: nil, order: nil)
-        conn.get(
+        response = conn.get(
           "/doilist/#{prefix}",
           {
             from: from,
@@ -40,11 +41,13 @@ module JaLC
             order: order,
           }.compact,
         )
+        response.body
       end
 
       def doi(doi)
         encoded_doi = URI.encode_www_form_component(URI.encode_www_form_component(doi))
-        conn.get("/dois/#{encoded_doi}")
+        response = conn.get("/dois/#{encoded_doi}")
+        response.body
       end
 
       private

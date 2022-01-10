@@ -78,7 +78,7 @@ RSpec.describe JaLC::Registration::Client do
       it 'posts XML and returns exec_id' do
         response = client.post(StringIO.new(xml))
 
-        expect(response.body.root.get_text('head/exec_id')).to eq '12345'
+        expect(response.root.get_text('head/exec_id')).to eq '12345'
         expect(WebMock).to have_requested(:post, 'https://japanlinkcenter.org/jalc/infoRegistry/registDataReceive/index')
       end
     end
@@ -163,7 +163,7 @@ RSpec.describe JaLC::Registration::Client do
     it 'fetches and returns the results' do
       response = client.get_result(12345)
 
-      expect(response.body.root.get_text('head/status')).to eq 1
+      expect(response.root.get_text('head/status')).to eq 1
       expect(WebMock).to have_requested(:get, 'https://japanlinkcenter.org/jalc/infoRegistry/registDataResult/index')
         .with(query: { login_id: id, login_password: password, exec_id: 12345 })
     end

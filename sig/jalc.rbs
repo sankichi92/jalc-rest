@@ -1,6 +1,7 @@
-type faraday_response = untyped
-
 module JaLC
+  interface _Logger
+  end
+
   VERSION: String
 
   module Registration
@@ -24,22 +25,25 @@ module JaLC
     class Client
       interface _IO
       end
+      type rexml_document = untyped
 
-      def initialize: (id: String, password: String, ?logger: Logger?, ?base_url: String) -> void
-      def post: (_IO xml_file) -> faraday_response
-      def get_result: (Integer | String exec_id) -> faraday_response
+      def initialize: (id: String, password: String, ?logger: _Logger?, ?base_url: String) -> void
+      def post: (_IO xml_file) -> rexml_document
+      def get_result: (Integer | String exec_id) -> rexml_document
     end
 
     class Config
       attr_accessor id: String?
       attr_accessor password: String?
-      attr_accessor logger: Logger?
+      attr_accessor logger: _Logger?
       
       def initialize: -> void
     end
   end
 
   module REST
+    type response_body = Hash[String, untyped] | String | nil
+
     BASE_URL: String
 
     def self.configure: { (Config) -> void } -> void
@@ -49,8 +53,7 @@ module JaLC
     end
     
     class HTTPError < Error
-      type faraday_header = untyped
-      type response_hash = {status: Integer, headers: faraday_header, body: untyped, request: {method: Symbol, url: URI, headers: faraday_header, body: String?}}
+      type response_hash = {status: Integer, headers: Hash[String, String], body: response_body, request: {method: Symbol, url: URI, headers: Hash[String, String], body: String?}}
 
       attr_reader response: response_hash?
 
@@ -71,14 +74,14 @@ module JaLC
     end
     
     class Client
-      def initialize: (?logger: Logger?, ?base_url: String) -> void
-      def prefixes: (?ra: String?, ?sort: String?, ?order: String?) -> faraday_response
-      def doilist: (String, ?from: String?, ?to: String?, ?rows: Integer? | String?, ?page: Integer? | String?, ?sort: String?, ?order: String?) -> faraday_response
-      def doi: (String) -> faraday_response
+      def initialize: (?logger: _Logger?, ?base_url: String) -> void
+      def prefixes: (?ra: String?, ?sort: String?, ?order: String?) -> response_body
+      def doilist: (String, ?from: String?, ?to: String?, ?rows: Integer? | String?, ?page: Integer? | String?, ?sort: String?, ?order: String?) -> response_body
+      def doi: (String) -> response_body
     end
 
     class Config
-      attr_accessor logger: Logger?
+      attr_accessor logger: _Logger?
       
       def initialize: -> void
     end

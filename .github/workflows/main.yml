@@ -40,5 +40,4 @@ jobs:
         env:
           RBS_TEST_TARGET: JaLC::*
           RUBYOPT: -r bundler/setup -r rbs/test/setup
-          RBS_TEST_OPT: -I sig -r logger
           RBS_TEST_LOGLEVEL: warn

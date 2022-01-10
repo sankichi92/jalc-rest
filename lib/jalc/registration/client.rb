@@ -20,7 +20,7 @@ module JaLC
       end
 
       def post(xml_file)
-        conn.post(
+        response = conn.post(
           '/jalc/infoRegistry/registDataReceive/index',
           {
             login_id: Faraday::Multipart::ParamPart.new(@id, 'text/plain'),
@@ -28,10 +28,11 @@ module JaLC
             fname: Faraday::Multipart::FilePart.new(xml_file, 'text/xml'),
           },
         )
+        response.body
       end
 
       def get_result(exec_id)
-        conn.get(
+        response = conn.get(
           '/jalc/infoRegistry/registDataResult/index',
           {
             login_id: @id,
@@ -39,6 +40,7 @@ module JaLC
             exec_id: exec_id,
           },
         )
+        response.body
       end
 
       private

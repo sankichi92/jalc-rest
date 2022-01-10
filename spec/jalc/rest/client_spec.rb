@@ -28,7 +28,7 @@ RSpec.describe JaLC::REST::Client do
       it 'requests "GET /prefixes"' do
         response = client.prefixes
 
-        expect(response.body['data']['items']).to be_an Array
+        expect(response['data']['items']).to be_an Array
         expect(WebMock).to have_requested(:get, 'https://api.japanlinkcenter.org/prefixes')
       end
     end
@@ -99,7 +99,7 @@ RSpec.describe JaLC::REST::Client do
       it 'requests "GET /doilist/:prefix"' do
         response = client.doilist(prefix)
 
-        expect(response.body['data']['items']).to be_an Array
+        expect(response['data']['items']).to be_an Array
         expect(WebMock).to have_requested(:get, "https://api.japanlinkcenter.org/doilist/#{prefix}")
       end
     end
@@ -108,7 +108,9 @@ RSpec.describe JaLC::REST::Client do
       let(:prefix) { '10.123' }
 
       before do
-        stub_request(:get, "https://api.japanlinkcenter.org/doilist/#{prefix}").with(query: hash_including)
+        stub_request(:get, "https://api.japanlinkcenter.org/doilist/#{prefix}")
+          .with(query: hash_including)
+          .to_return(headers: { 'Content-Type' => 'application/json' })
       end
 
       it 'requests "GET /doilst/:prefix" with params' do
@@ -176,7 +178,7 @@ RSpec.describe JaLC::REST::Client do
     it 'requests "GET /dois/:doi"' do
       response = client.doi('10.123/abc')
 
-      expect(response.body['data']).to be_a Hash
+      expect(response['data']).to be_a Hash
       expect(WebMock).to have_requested(:get, 'https://api.japanlinkcenter.org/dois/10.123%252Fabc')
     end
   end
