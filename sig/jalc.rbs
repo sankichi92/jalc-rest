@@ -1,0 +1,86 @@
+type faraday_response = untyped
+
+module JaLC
+  VERSION: String
+
+  module Registration
+    BASE_URL: String
+
+    def self.configure: { (Config) -> void } -> void
+    def self.config: -> Config
+
+    class Error < StandardError
+    end
+    
+    class RegistrationError < Error
+    end
+    
+    class AuthenticationError < RegistrationError
+    end
+    
+    class InvalidXMLError < RegistrationError
+    end
+
+    class Client
+      interface _IO
+      end
+
+      def initialize: (id: String, password: String, ?logger: Logger?, ?base_url: String) -> void
+      def post: (_IO xml_file) -> faraday_response
+      def get_result: (Integer | String exec_id) -> faraday_response
+    end
+
+    class Config
+      attr_accessor id: String?
+      attr_accessor password: String?
+      attr_accessor logger: Logger?
+      
+      def initialize: -> void
+    end
+  end
+
+  module REST
+    BASE_URL: String
+
+    def self.configure: { (Config) -> void } -> void
+    def self.config: -> Config
+
+    class Error < StandardError
+    end
+    
+    class HTTPError < Error
+      type faraday_header = untyped
+      type response_hash = {status: Integer, headers: faraday_header, body: untyped, request: {method: Symbol, url: URI, headers: faraday_header, body: String?}}
+
+      attr_reader response: response_hash?
+
+      def initialize: (?String? msg, ?response: response_hash?) -> void
+      def inspect: -> String
+    end
+
+    class ClientError < HTTPError
+    end
+    
+    class BadRequestError < ClientError
+    end
+    
+    class ResourceNotFound < ClientError
+    end
+    
+    class ServerError < HTTPError
+    end
+    
+    class Client
+      def initialize: (?logger: Logger?, ?base_url: String) -> void
+      def prefixes: (?ra: String?, ?sort: String?, ?order: String?) -> faraday_response
+      def doilist: (String, ?from: String?, ?to: String?, ?rows: Integer? | String?, ?page: Integer? | String?, ?sort: String?, ?order: String?) -> faraday_response
+      def doi: (String) -> faraday_response
+    end
+
+    class Config
+      attr_accessor logger: Logger?
+      
+      def initialize: -> void
+    end
+  end
+end

@@ -2,6 +2,7 @@
 
 - Filter password on logs
 - Remove `NilStatusError`
+- Create `jalc.rbs`
 
 ## [1.1.0] - 2022-01-10
 
