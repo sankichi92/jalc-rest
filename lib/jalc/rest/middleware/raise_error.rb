@@ -16,13 +16,8 @@ module JaLC
             raise ResourceNotFound.new(response: response_values(env))
           when 400...500
             raise ClientError.new(response: response_values(env))
-          when 500...600
+          when 500...600, nil
             raise ServerError.new(response: response_values(env))
-          when nil
-            raise NilStatusError.new(
-              'http status could not be derived from the server response',
-              response: response_values(env),
-            )
           end
         end
 
@@ -68,6 +63,5 @@ module JaLC
     class BadRequestError < ClientError; end
     class ResourceNotFound < ClientError; end
     class ServerError < HTTPError; end
-    class NilStatusError < ServerError; end
   end
 end

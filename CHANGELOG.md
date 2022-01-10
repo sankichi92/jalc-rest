@@ -1,10 +1,11 @@
 ## [Unreleased]
 
 - Filter password on logs
+- Remove `NilStatusError`
 
 ## [1.1.0] - 2022-01-10
 
-- Add JaLC::Registration for the registration API
+- Add `JaLC::Registration` for the registration API
 
 ## [1.0.0] - 2022-01-09
 
