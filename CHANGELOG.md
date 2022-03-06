@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Make the registration error messages Japanese
+
 ## [2.0.0] - 2022-01-10
 
 - Change the return values from `Faraday::Response` to its `#body`

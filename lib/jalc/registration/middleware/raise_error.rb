@@ -12,11 +12,11 @@ module JaLC
           case env.body.root.elements['head/errcd']&.text
           when '*'
             raise AuthenticationError,
-                  'Wrong login_id/login_password or non-registered IP address request (errcd=*)'
+                  'IDとパスワードの組合せが間違っているか、アクセス元のIPアドレスがJaLCに登録されているIPアドレスと異なっている可能性があります (errcd=*)'
           when '#'
-            raise InvalidXMLError, 'XML format is invalid or any required params are blank (errcd=#)'
+            raise InvalidXMLError, 'XMLファイルの構造に誤りがあるか、login_id、login_passwd、fnameのパラメータに未設定のものがある可能性があります (errcd=#)'
           when '+'
-            raise RegistrationError, 'Non-XML file, non UTF-8 encoding or other error (errcd=+)'
+            raise RegistrationError, 'fnameで指定したファイルがXMLファイルでないか、XMLファイルの文字コードがUTF-8でない可能性があります (errcd=+)'
           end
         end
       end
