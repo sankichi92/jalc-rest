@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [2.0.1] - 2022-03-06
+
 - Make the registration error messages Japanese
 
 ## [2.0.0] - 2022-01-10
