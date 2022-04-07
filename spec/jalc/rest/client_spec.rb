@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe JaLC::REST::Client do
-  let(:client) { described_class.new }
+  let(:client) { described_class.new(JaLC::REST::Config.new.tap { |c| c.logger = nil }) }
 
   describe '#prefixes' do
     context 'without args' do

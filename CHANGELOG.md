@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Update the constructor arguments of REST::Client and Registration::Client
+
 ## [2.0.1] - 2022-03-06
 
 - Make the registration error messages Japanese

@@ -9,12 +9,11 @@ require_relative '../version'
 
 module JaLC
   module REST
-    BASE_URL = 'https://api.japanlinkcenter.org'
-
     class Client
-      def initialize(logger: nil, base_url: BASE_URL)
-        @logger = logger
-        @base_url = base_url
+      attr_reader :config
+
+      def initialize(config)
+        @config = config
       end
 
       def prefixes(ra: nil, sort: nil, order: nil)
@@ -54,12 +53,12 @@ module JaLC
 
       def conn
         @conn ||= Faraday.new(
-          url: @base_url,
+          url: config.base_url,
           headers: { 'User-Agent' => "jalc-ruby v#{VERSION}" },
         ) do |f|
           f.use Middleware::RaiseError
           f.response :json
-          f.response :logger, @logger, { headers: false } if @logger
+          f.response :logger, config.logger, { headers: false } if config.logger
         end
       rescue Faraday::Error => e
         raise e unless e.message.match?(/is not registered/)

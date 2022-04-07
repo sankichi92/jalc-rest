@@ -50,6 +50,7 @@ See https://japanlinkcenter.org/top/doc/JaLC_tech_interface_doc.pdf for API deta
 require 'jalc'
 
 JaLC::Registration.configure do |config|
+  config.base_url = 'https://japanlinkcenter.org' # default
   config.id = 'sankichi92'
   config.password = ENV['JALC_PASSWORD']
   config.logger = nil

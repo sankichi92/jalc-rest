@@ -23,11 +23,7 @@ module JaLC
       private
 
       def client
-        @client ||= Client.new(
-          id: config.id,
-          password: config.password,
-          logger: config.logger,
-        )
+        @client ||= Client.new(config)
       end
     end
   end

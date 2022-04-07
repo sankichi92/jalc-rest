@@ -27,7 +27,7 @@ module JaLC
       end
       type rexml_document = untyped
 
-      def initialize: (id: String, password: String, ?logger: _Logger?, ?base_url: String) -> void
+      def initialize: (Config config) -> void
       def post: (_IO xml_file) -> rexml_document
       def get_result: (Integer | String exec_id) -> rexml_document
     end
@@ -74,7 +74,7 @@ module JaLC
     end
     
     class Client
-      def initialize: (?logger: _Logger?, ?base_url: String) -> void
+      def initialize: (Config config) -> void
       def prefixes: (?ra: String?, ?sort: String?, ?order: String?) -> response_body
       def doilist: (String prefix, ?from: String?, ?to: String?, ?rows: Integer? | String?, ?page: Integer? | String?, ?sort: String?, ?order: String?) -> response_body
       def doi: (String doi) -> response_body

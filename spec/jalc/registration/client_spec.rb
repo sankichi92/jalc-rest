@@ -1,7 +1,14 @@
 # frozen_string_literal: true
 
 RSpec.describe JaLC::Registration::Client do
-  let(:client) { described_class.new(id: id, password: password) }
+  let(:client) { described_class.new(config) }
+  let(:config) do
+    JaLC::Registration::Config.new.tap do |c|
+      c.id = id
+      c.password = password
+      c.logger = nil
+    end
+  end
   let(:id) { 'sankichi92' }
   let(:password) { 'secret' }
 
