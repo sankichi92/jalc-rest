@@ -154,7 +154,7 @@ RSpec.describe JaLC::Registration::Client do
   describe '#get_result' do
     before do
       stub_request(:get, 'https://japanlinkcenter.org/jalc/infoRegistry/registDataResult/index')
-        .with(query: hash_including(:login_id, :login_password, :exec_id))
+        .with(query: hash_including(:login_id, :login_passwd, :exec_id))
         .to_return(
           body: <<~XML,
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -172,7 +172,7 @@ RSpec.describe JaLC::Registration::Client do
 
       expect(response.root.get_text('head/status')).to eq 1
       expect(WebMock).to have_requested(:get, 'https://japanlinkcenter.org/jalc/infoRegistry/registDataResult/index')
-        .with(query: { login_id: id, login_password: password, exec_id: 12345 })
+        .with(query: { login_id: id, login_passwd: password, exec_id: 12345 })
     end
   end
 end

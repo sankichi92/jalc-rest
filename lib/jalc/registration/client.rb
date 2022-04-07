@@ -21,7 +21,7 @@ module JaLC
           '/jalc/infoRegistry/registDataReceive/index',
           {
             login_id: Faraday::Multipart::ParamPart.new(config.id, 'text/plain'),
-            login_password: Faraday::Multipart::ParamPart.new(config.password, 'text/plain'),
+            login_passwd: Faraday::Multipart::ParamPart.new(config.password, 'text/plain'),
             fname: Faraday::Multipart::FilePart.new(xml_file, 'text/xml'),
           },
         )
@@ -33,7 +33,7 @@ module JaLC
           '/jalc/infoRegistry/registDataResult/index',
           {
             login_id: config.id,
-            login_password: config.password,
+            login_passwd: config.password,
             exec_id: exec_id,
           },
         )

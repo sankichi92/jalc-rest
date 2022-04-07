@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Fix a typo of a registration API parameter
+
 ## [2.1.0] - 2022-04-07
 
 - Update the constructor arguments of REST::Client and Registration::Client
