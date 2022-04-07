@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [2.1.0] - 2022-04-07
+
 - Update the constructor arguments of REST::Client and Registration::Client
 
 ## [2.0.1] - 2022-03-06
