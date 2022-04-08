@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [2.1.1] - 2022-04-08
+
 - Fix a typo of a registration API parameter
 
 ## [2.1.0] - 2022-04-07
