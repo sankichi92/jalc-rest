@@ -5,8 +5,6 @@ module JaLC
   VERSION: String
 
   module Registration
-    BASE_URL: String
-
     def self.configure: { (Config) -> void } -> void
     def self.config: -> Config
 
@@ -33,6 +31,8 @@ module JaLC
     end
 
     class Config
+      DEFAULT_BASE_URL: String
+      
       attr_accessor id: String?
       attr_accessor password: String?
       attr_accessor logger: _Logger?
@@ -43,8 +43,6 @@ module JaLC
 
   module REST
     type response_body = Hash[String, untyped] | String | nil
-
-    BASE_URL: String
 
     def self.configure: { (Config) -> void } -> void
     def self.config: -> Config
@@ -81,6 +79,8 @@ module JaLC
     end
 
     class Config
+      DEFAULT_BASE_URL: String
+      
       attr_accessor logger: _Logger?
       
       def initialize: -> void
