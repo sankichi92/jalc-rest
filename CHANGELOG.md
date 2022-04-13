@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Fix the condition of log filtering
+
 ## [2.1.1] - 2022-04-08
 
 - Fix a typo of a registration API parameter

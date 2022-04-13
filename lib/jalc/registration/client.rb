@@ -53,7 +53,7 @@ module JaLC
           f.response :raise_error
           if config.logger
             f.response :logger, config.logger, { headers: false } do |logger|
-              logger.filter(/(password=)\w+/, '\1[FILTERED]')
+              logger.filter(/(passwd=)([^&]+)/, '\1[REMOVED]')
             end
           end
         end
