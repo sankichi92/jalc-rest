@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [2.1.2] - 2022-04-13
+
 - Fix the condition of log filtering
 
 ## [2.1.1] - 2022-04-08
