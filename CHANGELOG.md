@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Stop using HTTP GET for Registration API
+
 ## [2.1.2] - 2022-04-13
 
 - Fix the condition of log filtering

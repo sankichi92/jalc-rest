@@ -29,12 +29,12 @@ module JaLC
       end
 
       def get_result(exec_id)
-        response = conn.get(
+        response = conn.post(
           '/jalc/infoRegistry/registDataResult/index',
           {
-            login_id: config.id,
-            login_passwd: config.password,
-            exec_id: exec_id,
+            login_id: Faraday::Multipart::ParamPart.new(config.id, 'text/plain'),
+            login_passwd: Faraday::Multipart::ParamPart.new(config.password, 'text/plain'),
+            exec_id: Faraday::Multipart::ParamPart.new(exec_id, 'text/plain'),
           },
         )
         response.body
@@ -51,11 +51,7 @@ module JaLC
           f.use Middleware::RaiseError
           f.use Middleware::ParseXML
           f.response :raise_error
-          if config.logger
-            f.response :logger, config.logger, { headers: false } do |logger|
-              logger.filter(/(passwd=)([^&]+)/, '\1[REMOVED]')
-            end
-          end
+          f.response :logger, config.logger, { headers: false } if config.logger
         end
       end
     end
