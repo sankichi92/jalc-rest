@@ -24,9 +24,11 @@ module JaLC
     class RegistrationError < Error
       attr_reader :doc
 
-      def initialize(msg = nil, doc:)
+      def initialize(msg = nil, doc: nil)
         @doc = doc
-        msg ||= "#{doc.root.elements['head/errmsg']&.text} (errcd=#{doc.root.elements['head/errcd']&.text})"
+        if msg.nil? && doc
+          msg = "#{doc.root.elements['head/errmsg']&.text} (errcd=#{doc.root.elements['head/errcd']&.text})"
+        end
         super(msg)
       end
     end

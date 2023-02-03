@@ -12,7 +12,7 @@ module JaLC
     end
     
     class RegistrationError < Error
-      def initialize: (?String? msg, doc: untyped) -> void
+      def initialize: (?untyped msg, ?doc: untyped) -> void
                     
       attr_reader doc: untyped # REXML::Document
     end

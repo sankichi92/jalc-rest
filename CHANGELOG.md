@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Fix the constructor args of `Registration::RegistrationError`
+
 ## [2.2.0] - 2023-02-03
 
 - Stop using HTTP GET for Registration API
