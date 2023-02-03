@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [2.2.1] - 2023-02-03
+
 - Fix the constructor args of `Registration::RegistrationError`
 
 ## [2.2.0] - 2023-02-03
