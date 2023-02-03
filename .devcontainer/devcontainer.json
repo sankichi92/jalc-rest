@@ -20,7 +20,8 @@
       "extensions": [
 				"KoichiSasada.vscode-rdbg",
 				"castwide.solargraph",
-				"soutaro.rbs-syntax"
+				"soutaro.rbs-syntax",
+				"soutaro.steep-vscode"
 			]
     }
 	}

@@ -1,10 +1,10 @@
 module JaLC
-  interface _Logger
-  end
-
   VERSION: String
 
   module Registration
+    self.@config: Config
+    self.@client: Client
+
     def self.configure: { (Config) -> void } -> void
     def self.config: -> Config
 
@@ -21,28 +21,52 @@ module JaLC
     end
 
     class Client
-      interface _IO
-      end
-      type rexml_document = untyped
-
       def initialize: (Config config) -> void
-      def post: (_IO xml_file) -> rexml_document
-      def get_result: (Integer | String exec_id) -> rexml_document
+      
+      attr_reader config: Config
+      @conn: Faraday::Connection
+
+      def post: (IO | StringIO xml_file) -> untyped # REXML::Document
+      def get_result: (Integer | String exec_id) -> untyped # REXML::Document
+                    
+      private
+
+      def conn: -> Faraday::Connection
     end
 
     class Config
       DEFAULT_BASE_URL: String
       
+      def initialize: -> void
+      
+      attr_accessor base_url: String
       attr_accessor id: String?
       attr_accessor password: String?
-      attr_accessor logger: _Logger?
-      
-      def initialize: -> void
+      attr_accessor logger: Logger?
+    end
+
+    module Middleware
+      class ParseXML < Faraday::Middleware
+        def on_complete: (untyped env) -> void
+      end
+
+      class RaiseError < Faraday::Middleware
+        def on_complete: (untyped env) -> void
+      end
     end
   end
 
   module REST
     type response_body = Hash[String, untyped] | String | nil
+    type response_hash = {
+      status: Integer,
+      headers: Hash[String, String],
+      body: response_body,
+      request: { method: Symbol, url: URI, headers: Hash[String, String], body: String? }
+    }
+                       
+    self.@config: Config
+    self.@client: Client
 
     def self.configure: { (Config) -> void } -> void
     def self.config: -> Config
@@ -51,11 +75,10 @@ module JaLC
     end
     
     class HTTPError < Error
-      type response_hash = {status: Integer, headers: Hash[String, String], body: response_body, request: {method: Symbol, url: URI, headers: Hash[String, String], body: String?}}
+      def initialize: (?String? msg, ?response: response_hash?) -> void
 
       attr_reader response: response_hash?
 
-      def initialize: (?String? msg, ?response: response_hash?) -> void
       def inspect: -> String
     end
 
@@ -73,17 +96,36 @@ module JaLC
     
     class Client
       def initialize: (Config config) -> void
+      
+      attr_reader config: Config
+      @conn: Faraday::Connection
+
       def prefixes: (?ra: String?, ?sort: String?, ?order: String?) -> response_body
       def doilist: (String prefix, ?from: String?, ?to: String?, ?rows: Integer? | String?, ?page: Integer? | String?, ?sort: String?, ?order: String?) -> response_body
       def doi: (String doi) -> response_body
+             
+      private
+
+      def conn: -> Faraday::Connection
     end
 
     class Config
       DEFAULT_BASE_URL: String
       
-      attr_accessor logger: _Logger?
-      
       def initialize: -> void
+      
+      attr_accessor base_url: String
+      attr_accessor logger: Logger?  
+    end
+
+    module Middleware
+      class RaiseError < Faraday::Middleware
+        def on_complete: (untyped env) -> void
+                       
+        private
+
+        def response_values: (untyped env) -> response_hash
+      end
     end
   end
 end

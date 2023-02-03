@@ -44,7 +44,7 @@ module JaLC
 
       def initialize(msg = nil, response: nil)
         @response = response
-        msg ||= response[:body].dig('message', 'errors', 'message') if response && response[:body].respond_to?(:dig)
+        msg ||= response[:body].dig('message', 'errors', 'message') if response && response[:body].is_a?(Hash)
         msg ||= "the server responded with status #{response[:status]}" if response
 
         super(msg)

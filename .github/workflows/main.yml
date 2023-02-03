@@ -28,6 +28,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: true
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -39,5 +41,6 @@ jobs:
         run: bundle exec rake
         env:
           RBS_TEST_TARGET: JaLC::*
+          RBS_TEST_OPT: --repo gem_rbs_collection/gems -r logger -r faraday -I sig
           RUBYOPT: -r bundler/setup -r rbs/test/setup
           RBS_TEST_LOGLEVEL: warn
