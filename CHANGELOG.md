@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [2.2.0] - 2023-02-03
+
 - Stop using HTTP GET for Registration API
 - Use `errmsg` element for error messages
 
