@@ -66,8 +66,8 @@ module JaLC
         begin
           require 'faraday_middleware'
         rescue LoadError
-          raise LoadError, 'faraday_middleware gem is required when using Faraday v1.' \
-                           " Please add `gem 'faraday_middleware'` to your Gemfile."
+          raise LoadError, 'faraday_middleware gem is required when using Faraday v1. ' \
+                           "Please add `gem 'faraday_middleware'` to your Gemfile."
         end
 
         retry
