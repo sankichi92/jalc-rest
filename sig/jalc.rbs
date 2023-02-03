@@ -12,6 +12,9 @@ module JaLC
     end
     
     class RegistrationError < Error
+      def initialize: (?String? msg, doc: untyped) -> void
+                    
+      attr_reader doc: untyped # REXML::Document
     end
     
     class AuthenticationError < RegistrationError
@@ -57,7 +60,7 @@ module JaLC
   end
 
   module REST
-    type response_body = Hash[String, untyped] | String | nil
+    type response_body = (Hash[String, untyped] | String)?
     type response_hash = {
       status: Integer,
       headers: Hash[String, String],

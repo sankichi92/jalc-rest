@@ -98,6 +98,7 @@ RSpec.describe JaLC::Registration::Client do
             <root>
               <head>
                 <errcd>*</errcd>
+                <errmsg>ID またはパスワードが正しくありません。</errmsg>
               </head>
             </root>
           XML
@@ -118,6 +119,7 @@ RSpec.describe JaLC::Registration::Client do
             <root>
               <head>
                 <errcd>#</errcd>
+                <errmsg>fname で指定した XML ファイルの構造に誤りがあります。</errmsg>
               </head>
             </root>
           XML
@@ -138,6 +140,7 @@ RSpec.describe JaLC::Registration::Client do
             <root>
               <head>
                 <errcd>+</errcd>
+                <errmsg>fname で指定されたファイルが XML ファイルではありません。</errmsg>
               </head>
             </root>
           XML

@@ -11,18 +11,26 @@ module JaLC
         def on_complete(env)
           case env.body.root.elements['head/errcd']&.text
           when '*'
-            raise AuthenticationError,
-                  'IDとパスワードの組合せが間違っているか、アクセス元のIPアドレスがJaLCに登録されているIPアドレスと異なっている可能性があります (errcd=*)'
+            raise AuthenticationError.new(doc: env.body)
           when '#'
-            raise InvalidXMLError, 'XMLファイルの構造に誤りがあるか、login_id、login_passwd、fnameのパラメータに未設定のものがある可能性があります (errcd=#)'
+            raise InvalidXMLError.new(doc: env.body)
           when '+'
-            raise RegistrationError, 'fnameで指定したファイルがXMLファイルでないか、XMLファイルの文字コードがUTF-8でない可能性があります (errcd=+)'
+            raise RegistrationError.new(doc: env.body)
           end
         end
       end
     end
 
-    class RegistrationError < Error; end
+    class RegistrationError < Error
+      attr_reader :doc
+
+      def initialize(msg = nil, doc:)
+        @doc = doc
+        msg ||= "#{doc.root.elements['head/errmsg']&.text} (errcd=#{doc.root.elements['head/errcd']&.text})"
+        super(msg)
+      end
+    end
+
     class AuthenticationError < RegistrationError; end
     class InvalidXMLError < RegistrationError; end
   end
